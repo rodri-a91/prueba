@@ -17,9 +17,20 @@ public class TestSpringPeliculasApplication {
 		
 		PeliculaService service = context.getBean(PeliculaService.class);
 		
-		List<Pelicula> result = service.consultarPeliculas();
+//		List<Pelicula> result = service.consultarPeliculas();
+//		
+//		result.forEach(System.out::println);
 		
-		result.forEach(System.out::println);
+//		List<Pelicula> resultDirector = service.consultarPeliculasDirector("quentin", 2003);
+//		
+//		resultDirector.forEach(System.out::println);
+		
+//		List<Pelicula> resultDirectorTitulo = service.consultarPeliculas("vit");
+//		resultDirectorTitulo.forEach(System.out::println);
+		
+		List<Pelicula> resultAño = service.consultarPeliculasAños(10);
+		resultAño.forEach(System.out::println);
+		
 	}
 
 }

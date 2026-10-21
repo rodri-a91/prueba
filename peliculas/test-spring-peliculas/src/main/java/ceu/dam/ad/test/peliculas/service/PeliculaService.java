@@ -1,5 +1,6 @@
 package ceu.dam.ad.test.peliculas.service;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
@@ -30,7 +31,25 @@ public class PeliculaService {
 //		
 //		throw new PeliculaNotFoundException("No existe película con el id " + id);
 
-		return peli.orElseThrow(() -> new PeliculaNotFoundException("No existe película con el id" + id));
+		return peli.orElseThrow(() -> new PeliculaNotFoundException("No existe película con el id " + id));
+	}
+
+	public List<Pelicula> consultarPeliculasDirector(String director, Integer año) {
+//		return repo.findAll().stream().filter(p -> p.getDirector().equals(director)).toList();
+		return repo.findByDirectorContainsAndEstrenoEquals(director, año);
+
+	}
+
+//	Filtro con una palabra para todas las peliculas que contengan en titulo o direccion
+
+	public List<Pelicula> consultarPeliculas(String filtro) {
+		return repo.findByTituloContainsOrDirectorContains(filtro, filtro);
+	}
+
+	public List<Pelicula> consultarPeliculasAños(Integer cantAños) {
+		Integer fecha = LocalDate.now().minusYears(cantAños).getYear();
+		return repo.findByEstrenoIsAfter(fecha);
+
 	}
 
 	public Pelicula crearPelicula(Pelicula pelicula) {
