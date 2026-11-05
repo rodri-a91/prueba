@@ -2,6 +2,7 @@ package ceu.api.user.server.configuration;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
@@ -43,6 +44,13 @@ public class GlobalExceptionHandler {
 	public ResponseEntity<String> handle(Exception e) {
 		log.error("Error inesperado" + e.getMessage(), e);
 		return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(e.getMessage());
+	}
+
+	@ExceptionHandler(exception = MethodArgumentNotValidException.class)
+	public ResponseEntity<String> handle(MethodArgumentNotValidException e) {
+
+		return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(
+				"Error de validación de " + e.getFieldError().getField() + " - " + e.getFieldError().getDefaultMessage());
 	}
 
 }

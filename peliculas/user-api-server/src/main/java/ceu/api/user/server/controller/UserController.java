@@ -20,6 +20,7 @@ import ceu.dam.ad.services.UserNotFoundException;
 import ceu.dam.ad.services.UserService;
 import ceu.dam.ad.services.UserUnauthorizedException;
 import io.swagger.v3.oas.annotations.Operation;
+import jakarta.validation.Valid;
 
 @RequestMapping("/user")
 @RestController
@@ -40,7 +41,7 @@ public class UserController {
 	}
 
 	@PostMapping
-	public UserResponseDto createUser(@RequestBody UserCreateRequestDto user)
+	public UserResponseDto createUser(@Valid @RequestBody UserCreateRequestDto user)
 			throws DuplicateUserException, UserException {
 		User u = mapper.map(user, User.class);
 
